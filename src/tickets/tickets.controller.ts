@@ -13,6 +13,11 @@ export class TicketsController {
     return this.ticketsService.create(createTicketDto);
   }
 
+  @Post('triage')
+  createWithTriage(@Body() dto: CreateTicketDto) {
+    return this.ticketsService.createWithTriage(dto);
+  }
+
   @Get()
   findAll() {
     return this.ticketsService.findAll();

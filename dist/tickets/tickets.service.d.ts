@@ -8,4 +8,6 @@ export declare class TicketsService {
     findAll(): Promise<Ticket[]>;
     findOne(id: string): Promise<Ticket>;
     updateStatus(id: string, status: TicketStatus): Promise<Ticket>;
+    private classifyPriority;
+    createWithTriage(createTicketDto: CreateTicketDto): Promise<Ticket>;
 }

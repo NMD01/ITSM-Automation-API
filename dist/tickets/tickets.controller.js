@@ -26,6 +26,9 @@ let TicketsController = class TicketsController {
     create(createTicketDto) {
         return this.ticketsService.create(createTicketDto);
     }
+    createWithTriage(dto) {
+        return this.ticketsService.createWithTriage(dto);
+    }
     findAll() {
         return this.ticketsService.findAll();
     }
@@ -44,6 +47,13 @@ __decorate([
     __metadata("design:paramtypes", [create_ticket_dto_1.CreateTicketDto]),
     __metadata("design:returntype", void 0)
 ], TicketsController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)('triage'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_ticket_dto_1.CreateTicketDto]),
+    __metadata("design:returntype", void 0)
+], TicketsController.prototype, "createWithTriage", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

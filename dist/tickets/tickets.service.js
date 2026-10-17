@@ -43,6 +43,40 @@ let TicketsService = class TicketsService {
         ticket.status = status;
         return this.ticketRepository.save(ticket);
     }
+    classifyPriority(title, description) {
+        const text = `${title} ${description}`.toLowerCase();
+        const criticalKeywords = [
+            'fora do ar',
+            'indisponível',
+            'indisponivel',
+            'sistema parado',
+            'sistema indisponível',
+            'sistema indisponivel',
+        ];
+        const highKeywords = [
+            'acesso',
+            'acess',
+            'login',
+            'senha',
+            'bloqueado',
+            'bloqueada',
+        ];
+        if (criticalKeywords.some((keyword) => text.includes(keyword))) {
+            return ticket_entity_1.TicketPriority.CRITICAL;
+        }
+        if (highKeywords.some((keyword) => text.includes(keyword))) {
+            return ticket_entity_1.TicketPriority.HIGH;
+        }
+        return ticket_entity_1.TicketPriority.MEDIUM;
+    }
+    async createWithTriage(createTicketDto) {
+        const priority = this.classifyPriority(createTicketDto.title, createTicketDto.description);
+        const ticket = this.ticketRepository.create({
+            ...createTicketDto,
+            priority,
+        });
+        return this.ticketRepository.save(ticket);
+    }
 };
 exports.TicketsService = TicketsService;
 exports.TicketsService = TicketsService = __decorate([
