@@ -1,0 +1,22 @@
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: itsm-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: itsm_automation
+      POSTGRES_USER: itsm_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - itsm_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U itsm_user -d itsm_automation"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  itsm_postgres_data:
